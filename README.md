@@ -54,19 +54,51 @@ make clean
 ```c
 #include "../include/intArrayLib.h"
 #include "../include/charArrayLib.h"
+#include <stdio.h>
 
-struct intArray myInts;
-initIntArray(&myInts, 3);
-pushInt(&myInts, 42);
-removeIntAt(&myInts, 1);
-deAllocateIntArray(&myInts);
+int main() {
+    // ====================
+    // INT ARRAY
+    // ====================
+    struct intArray myInts = {0};
 
-struct charArray myChars;
-initCharArray(&myChars, 5);
-pushChar(&myChars, 'X');
-foreachCharArray(&myChars, toUppercaseChar);
-deAllocateCharArray(&myChars); 
+    if (!initIntArray(&myInts, 3)) {
+        printf("Failed to initialize int array\n");
+        return 1;
+    }
 
+    if (!pushInt(&myInts, 42)) {
+        printf("Failed to push value into int array\n");
+    }
+
+    if (!removeIntAt(&myInts, 1)) {
+        printf("Failed to remove value at index 1\n");
+    }
+
+    deAllocateIntArray(&myInts);
+
+    // ====================
+    // CHAR ARRAY
+    // ====================
+    struct charArray myChars = {0};
+
+    if (!initCharArray(&myChars, 5)) {
+        printf("Failed to initialize char array\n");
+        return 1;
+    }
+
+    if (!pushChar(&myChars, 'X')) {
+        printf("Failed to push char into array\n");
+    }
+
+    if (!foreachCharArray(&myChars, toUppercaseChar)) {
+        printf("Failed to apply foreach operation\n");
+    }
+
+    deAllocateCharArray(&myChars);
+
+    return 0;
+}
 
 
 
